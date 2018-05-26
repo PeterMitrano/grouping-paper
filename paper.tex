@@ -1,0 +1,25 @@
+Motivations
+ - understanding grouping of onsets is useful
+   - For automatic accompanyment, like robotic accompanyment in real time
+   - Knowing groups lets you make riffs and variations
+   - For DAWs and compostion tools to manipulate groups of notes together
+     - Apply op to groupings
+     - Create pieces that mess with our sense of grouping
+     - Provide a second opinion on grouping to compliment the composers own interpretation
+
+Problem Statement
+ - Predict the grouping boundaries in a short clip of music in raw audio format
+ - Currently limited to the 8 second time span, trained only on guitar to avoid having to generalize across instruments
+
+Methodology
+ - Designed interface to collect labels of grouping boundaries in real guitar music
+   - users place circular markers on the line where the play head travels to indicate the start of a group.
+   - A group is assumed to consist of a set of onsets and
+   - We trained an RNN where the input is a first raw audio procesed by a FFT and filter bank, and the output is the probability that a grouping starts at that point in time. Points in time correspond to the discrete frames/windows of the FFT. We back propogate each trial for each clip seperately. Since each clip will have 2 or more responses, that means each of those responses (trials) will be a seperate weight update.
+   - The result is a machine that takes in raw audio and outputs probability of the start of a group.
+
+Contributions
+ - A machine to predict the start of groups in raw audio, initially trained only on acoustic guitars.
+ - A dataset of human-labeled groupings. Groupings are in accurate, but they are also from a wide range of listeners with little bias towards any kind of grouping
+ - A methodology and mturk-friendly interface for collecting labels on pieces of music.
+   - Not sure we want to highlight this, because we don't really know if our interface is any good yet
